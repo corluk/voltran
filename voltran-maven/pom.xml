@@ -2,24 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
- 
-  <groupId>io.voltran</groupId>
+  <parent>
+    <groupId>io.voltran</groupId>
+    <artifactId>voltran</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
   <artifactId>voltran-maven-plugin</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>Maven Plugin For Voltran</name>
   <properties>
     <mavenVersion>3.0</mavenVersion>
     <pluginTestingVersion>2.1</pluginTestingVersion>
+    <mavenPluginPluginVersion>3.5</mavenPluginPluginVersion>
+    <plexusCompilerVersion>2.8.4</plexusCompilerVersion>
   </properties>
   <dependencies>
     <!-- maven -->
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>${mavenVersion}</version>
-    </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
@@ -27,7 +26,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
-      <artifactId>maven-model</artifactId>
+      <artifactId>maven-artifact</artifactId>
       <version>${mavenVersion}</version>
     </dependency>
     <dependency>
@@ -36,38 +35,57 @@
       <version>${mavenVersion}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-repository-metadata</artifactId>
-      <version>${mavenVersion}</version>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-shared-utils</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-shared-incremental</artifactId>
+      <version>1.1</version>
     </dependency>
     <!-- plexus -->
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-archiver</artifactId>
-      <version>3.6.0</version>
+      <artifactId>plexus-java</artifactId>
+      <version>0.9.10</version>
     </dependency>
+
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>3.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.shared</groupId>
-      <artifactId>file-management</artifactId>
-      <version>3.0.0</version>
+      <artifactId>plexus-compiler-api</artifactId>
+      <version>${plexusCompilerVersion}</version>
       <exclusions>
         <exclusion>
-          <artifactId>maven-artifact-manager</artifactId>
-          <groupId>org.apache.maven</groupId>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-io</artifactId>
-      <version>3.0.0</version>
+      <artifactId>plexus-compiler-manager</artifactId>
+      <version>${plexusCompilerVersion}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-    <!-- dependencies to annotations -->
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-compiler-javac</artifactId>
+      <version>${plexusCompilerVersion}</version>
+      <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.codehaus.plexus</groupId>
+          <artifactId>plexus-component-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
     <!-- dependencies to annotations -->
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
@@ -94,7 +112,12 @@
       <version>${pluginTestingVersion}</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-compat</artifactId>
+      <version>${mavenVersion}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
   <plugins>

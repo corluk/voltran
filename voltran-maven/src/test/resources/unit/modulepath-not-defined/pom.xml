@@ -25,7 +25,7 @@
                 <artifactId>voltran-maven-plugin</artifactId>
                 <configuration>
                     <!-- Specify the MyMojo parameter -->
-                    <module-path>/voltran/module-path</module-path>
+
                 </configuration>
             </plugin>
         </plugins>
